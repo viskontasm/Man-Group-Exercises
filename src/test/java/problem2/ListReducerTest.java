@@ -9,40 +9,104 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 class ListReducerTest {
 
+    /* Problem 2, part 1*/
     @Test
     public void testWhenListNull() {
-        assertNull(ListReducer.getReducedListByIndices(null, new int[] {0}));
+        assertNull(ListReducer.reducedListByIndices(null, new ArrayList<>() {{ add(0); }}));
     }
 
     @Test
     public void testWhenListEmpty() {
-        assertEquals(new ArrayList<>(), ListReducer.getReducedListByIndices(new ArrayList<>(), new int[] {0}));
+        assertEquals(new ArrayList<>(), ListReducer.reducedListByIndices(new ArrayList<>(), new ArrayList<>() {{ add(0); }}));
+    }
+
+    @Test
+    public void testWhenIndicesNull() {
+        assertEquals(new ArrayList<>() {{ add("a"); }}, ListReducer.reducedListByIndices(new ArrayList<>() {{ add("a"); }}, null));
     }
 
     @Test
     public void testWhenIndicesEmpty() {
-        assertEquals(new ArrayList<>(), ListReducer.getReducedListByIndices(new ArrayList<>(), new int[] {}));
+        assertEquals(new ArrayList<>() {{ add("a"); }}, ListReducer.reducedListByIndices(new ArrayList<>() {{ add("a"); }}, new ArrayList<>()));
     }
 
     @Test
     public void testRemoveIndicesOutsideList() {
-        List<String> result = ListReducer.getReducedListByIndices(new ArrayList<>() {{ add("a"); }}, new int[] {1});
+        List<Object> result = ListReducer.reducedListByIndices(new ArrayList<>() {{ add("a"); }}, new ArrayList<>() {{ add(1); }});
         List<String> expectedResult = new ArrayList<>() {{ add("a"); }};
         assertEquals(expectedResult, result);
     }
 
     @Test
     public void testRemoveIndicesNegativeOutsideList() {
-        List<String> result = ListReducer.getReducedListByIndices(new ArrayList<>() {{ add("a"); }}, new int[] {-1});
+        List<Object> result = ListReducer.reducedListByIndices(new ArrayList<>() {{ add("a"); }}, new ArrayList<>() {{ add(-1); }});
         List<String> expectedResult = new ArrayList<>() {{ add("a"); }};
         assertEquals(expectedResult, result);
     }
 
     @Test
     public void testRemoveIndicesInList() {
-        List<String> result = ListReducer.getReducedListByIndices(new ArrayList<>() {{ add("a"); add("b");
-            add("c"); add("d"); add("e"); }}, new int[] {0, 3});
+        List<Object> result = ListReducer.reducedListByIndices(new ArrayList<>() {{ add("a"); add("b");
+            add("c"); add("d"); add("e"); }}, new ArrayList<>() {{ add(0); add(3); }});
         List<String> expectedResult = new ArrayList<>() {{ add("b"); add("c"); add("e"); }};
         assertEquals(expectedResult, result);
+    }
+
+    /* Problem 2, part 2*/
+    @Test
+    public void test2TupeRemoveIndicesWhenListNull() {
+        List<Integer> innerIndices = new ArrayList<>() {{ add(0); }};
+        List<List<Object>> result = ListReducer.reduced2TupleListByIndices(null, new ArrayList<>() {{ add(innerIndices); }});
+        assertNull(result);
+    }
+
+    @Test
+    public void test2TupeRemoveIndicesWhenListEmpty() {
+        List<Integer> innerIndices = new ArrayList<>() {{ add(0); }};
+        assertEquals(new ArrayList<>(),
+                ListReducer.reduced2TupleListByIndices(new ArrayList<>(), new ArrayList<>() {{ add(innerIndices); }}));
+    }
+
+    @Test
+    public void test2TupesWhenIndicesEmpty() {
+        List<Object> innerList = new ArrayList<>() {{ add("a"); add("b"); add("c"); add("d"); add("e"); }};
+        List<List<Object>> outerList = new ArrayList<>() {{ add(innerList); }};
+        List<List<Object>> expectedResult = new ArrayList<>() {{ add(innerList); }};
+        assertEquals(expectedResult, ListReducer.reduced2TupleListByIndices(outerList, new ArrayList<>()));
+    }
+
+    @Test
+    public void test2TupeRemoveIndicesInList() {
+        List<Object> list1 = new ArrayList<>() {{ add("a"); add("b"); add("c"); add("d"); add("e"); }};
+        List<Object> list2 = new ArrayList<>() {{ add("a"); add("b"); add("c"); }};
+        List<List<Object>> fullList = new ArrayList<>() {{ add(list1); add(list2); }};
+
+        List<Integer> indice1 = new ArrayList<>() {{ add(0); add(0); }};
+        List<Integer> indice2 = new ArrayList<>() {{ add(0); add(3); }};
+        List<Integer> indice3 = new ArrayList<>() {{ add(1); add(1); }};
+        List<List<Integer>> fullIndices = new ArrayList<>() {{ add(indice1); add(indice2); add(indice3); }};
+
+        List<Object> resultList1 = new ArrayList<>() {{ add("b"); add("c"); add("e"); }};
+        List<Object> resultList2 = new ArrayList<>() {{ add("a");  add("c"); }};
+        List<List<Object>> expectedResult = new ArrayList<>() {{ add(resultList1); add(resultList2); }};
+
+        List<List<Object>> result = ListReducer.reduced2TupleListByIndices(fullList, fullIndices);
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void test2TupeRemoveIndicesInListWhenIndicesOffList() {
+        List<Object> list1 = new ArrayList<>() {{ add("a"); add("b"); add("c"); add("d"); add("e"); }};
+        List<Object> list2 = new ArrayList<>() {{ add("a"); add("b"); add("c"); }};
+        List<List<Object>> fullList = new ArrayList<>() {{ add(list1); add(list2); }};
+
+        List<Integer> indice1 = new ArrayList<>() {{ add(1); add(4); }};
+        List<Integer> indice2 = new ArrayList<>() {{ add(2); add(1); }};
+        List<List<Integer>> fullIndices = new ArrayList<>() {{ add(indice1); add(indice2); }};
+
+        List<List<Object>> result = ListReducer.reduced2TupleListByIndices(fullList, fullIndices);
+
+        assertEquals(fullList, result);
     }
 }

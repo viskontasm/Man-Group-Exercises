@@ -14,7 +14,7 @@ public class MaxScorePair {
         int maxScore = -1;
         Pair<String, String> pair = null;
         for (int i = 0; i < words.size() - 1; i++) {
-            for (int j = i +1 ; j < words.size(); j++) {
+            for (int j = i + 1 ; j < words.size(); j++) {
                 int currentScore = ScoreStrings.getScore(words.get(i), words.get(j));
                 if (maxScore < currentScore) {
                     pair = ImmutablePair.of(words.get(i), words.get(j));
