@@ -19,7 +19,8 @@ public class ListReducer {
         return list;
     }
 
-    public static List<List<Object>> reduced2TupleListByIndices(List<List<Object>> list, List<List<Integer>> indices) {
+    public static List<List<Object>> reduced2TupleListByIndices(List<List<Object>> list,
+                                                                List<List<Integer>> indices) {
         if (!isEmpty(list) && !isEmpty(indices)) {
             Collections.reverse(indices);
             indices.stream()
@@ -32,5 +33,28 @@ public class ListReducer {
                     });
         }
         return list;
+    }
+
+    public static List<Object> getReducedNTupleListByIndices(List<Object> list,
+                                                             List<List<Integer>> indices
+    ) {
+        if (!isEmpty(list)) {
+            Collections.reverse(indices);
+            indices.stream()
+                    .filter(ind -> ind.size() > 1)
+                    .forEach(ind -> iterateNTupes(list, ind, 0));
+        }
+        return list;
+    }
+
+    private static void iterateNTupes(List<Object> list, List<Integer> ind, int iteration) {
+        if (iteration + 1 == ind.size()) {
+            if (!isEmpty(list)) {
+                reducedListByIndices(list, Collections.singletonList(ind.get(ind.size() - 1)));
+            }
+        } else if (ind.get(iteration) < list.size()){
+            List<Object> innerList = (List<Object>) list.get(ind.get(iteration));
+            iterateNTupes(innerList, ind, iteration + 1);
+        }
     }
 }

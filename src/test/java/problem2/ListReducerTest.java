@@ -109,4 +109,34 @@ class ListReducerTest {
 
         assertEquals(fullList, result);
     }
+
+    @Test
+    public void testNTupesRemoveIndicesInList() {
+        List<Object> list1 = new ArrayList<>() {{ add("a"); add("b"); add("c"); add("d"); add("e"); }};
+        List<Object> list2 = new ArrayList<>() {{ add("a"); add("b"); add("c"); }};
+        List<Object> list3 = new ArrayList<>() {{ add("a"); add("b"); add("c"); }};
+        List<Object> outerList = new ArrayList<>() {{ add(list1); add(list2); }};
+        List<Object> outerList2 = new ArrayList<>() {{ add(outerList); add(list3); }};
+        List<Object> fullList = new ArrayList<>() {{ add(outerList2); }};
+
+        List<Object> resultList1 = new ArrayList<>() {{ add("b"); add("c"); add("d"); add("e"); }};
+        List<Object> resultList2 = new ArrayList<>() {{ add("a");  add("c"); }};
+        List<Object> resultList3 = new ArrayList<>() {{ add("b");  add("c"); }};
+        List<Object> resultOuterList = new ArrayList<>() {{ add(resultList1); add(resultList2); }};
+        List<Object> resultOuterList2 = new ArrayList<>() {{ add(resultOuterList); add(resultList3);}};
+        List<Object> expectedResult = new ArrayList<>() {{ add(resultOuterList2); }};
+
+
+        List<Integer> indice1 = new ArrayList<>() {{ add(0); add(0); add(0); add(0); }};
+        List<Integer> indice2 = new ArrayList<>() {{ add(0); add(0); add(1); add(1); }};
+        List<Integer> indice3 = new ArrayList<>() {{ add(0); add(1); add(0); }};
+        List<Integer> indiceOffList = new ArrayList<>() {{ add(1); add(0); add(0); }};
+        List<Integer> indiceOffList2 = new ArrayList<>() {{ add(0); add(1); add(3); }};
+        List<List<Integer>> fullIndices = new ArrayList<>() {{ add(indice1); add(indice2); add(indice3);
+            add(indiceOffList); add(indiceOffList2); }};
+
+        List<Object> result = ListReducer.getReducedNTupleListByIndices(fullList, fullIndices);
+
+        assertEquals(expectedResult, result);
+    }
 }
