@@ -1,8 +1,8 @@
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
-public class WordLengthProduct {
+public class SharesCharacters {
 
-    public boolean sharesCharacters(String one, String two) {
+    public static boolean isCharacterShared(String one, String two) {
         if (isEmpty(one) || isEmpty(two)) {
             return false;
         }
@@ -10,7 +10,7 @@ public class WordLengthProduct {
                 two.chars().anyMatch(c -> checkIfCharIntExists(one, c));
     }
 
-    private boolean checkIfCharIntExists(String str, int intChar) {
+    private static boolean checkIfCharIntExists(String str, int intChar) {
         return str.chars().anyMatch(c -> intChar == c);
     }
 }
