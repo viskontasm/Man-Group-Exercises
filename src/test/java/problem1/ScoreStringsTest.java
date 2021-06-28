@@ -1,4 +1,7 @@
+package problem1;
+
 import org.junit.jupiter.api.Test;
+import problem1.ScoreStrings;
 
 import static org.junit.jupiter.api.Assertions.*;
 

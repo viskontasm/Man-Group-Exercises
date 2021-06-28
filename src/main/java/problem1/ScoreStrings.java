@@ -1,3 +1,5 @@
+package problem1;
+
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 public class ScoreStrings {

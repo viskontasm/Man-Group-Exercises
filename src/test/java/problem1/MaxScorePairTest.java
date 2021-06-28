@@ -1,6 +1,9 @@
+package problem1;
+
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.Test;
+import problem1.MaxScorePair;
 
 import java.util.ArrayList;
 
