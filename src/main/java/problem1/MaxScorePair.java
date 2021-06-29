@@ -7,7 +7,7 @@ import java.util.List;
 
 public class MaxScorePair {
 
-    public static Pair<String, String> getPair(List<String> words) {
+    public static Pair<String, String> maxWordPair(List<String> words) {
         if (words == null || words.size() < 2) {
             return null;
         }
@@ -15,7 +15,7 @@ public class MaxScorePair {
         Pair<String, String> pair = null;
         for (int i = 0; i < words.size() - 1; i++) {
             for (int j = i + 1 ; j < words.size(); j++) {
-                int currentScore = ScoreStrings.getScore(words.get(i), words.get(j));
+                int currentScore = ScoreStrings.scoreStrings(words.get(i), words.get(j));
                 if (maxScore < currentScore) {
                     pair = ImmutablePair.of(words.get(i), words.get(j));
                     maxScore = currentScore;

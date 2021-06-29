@@ -9,31 +9,31 @@ class ScoreStringsTest {
 
     @Test
     public void testScoreWhenFirstStringNull() {
-        assertEquals(0, ScoreStrings.getScore(null, "aaa"));
+        assertEquals(0, ScoreStrings.scoreStrings(null, "aaa"));
     }
 
     @Test
     public void testScoreWhenFirstStringEmpty() {
-        assertEquals(0, ScoreStrings.getScore("", "aaa"));
+        assertEquals(0, ScoreStrings.scoreStrings("", "aaa"));
     }
 
     @Test
     public void testScoreWhenSecondStringNull() {
-        assertEquals(0, ScoreStrings.getScore("aaa", null));
+        assertEquals(0, ScoreStrings.scoreStrings("aaa", null));
     }
 
     @Test
     public void testScoreWhenSecondStringEmpty() {
-        assertEquals(0, ScoreStrings.getScore("aaa", null));
+        assertEquals(0, ScoreStrings.scoreStrings("aaa", null));
     }
 
     @Test
     public void testScoreWhenCharacterShared() {
-        assertEquals(0, ScoreStrings.getScore("aaa", "abc"));
+        assertEquals(0, ScoreStrings.scoreStrings("aaa", "abc"));
     }
 
     @Test
     public void testScoreWhenCharacterNotShared() {
-        assertEquals(12, ScoreStrings.getScore("aaa", "bcde"));
+        assertEquals(12, ScoreStrings.scoreStrings("aaa", "bcde"));
     }
 }

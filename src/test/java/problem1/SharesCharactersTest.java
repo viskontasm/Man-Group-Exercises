@@ -9,31 +9,31 @@ class SharesCharactersTest {
 
     @Test
     public void testWhenFirstStringNull() {
-        assertFalse(SharesCharacters.isCharacterShared(null, "aaa"));
+        assertFalse(SharesCharacters.sharesCharacters(null, "aaa"));
     }
 
     @Test
     public void testWhenFirstStringEmpty() {
-        assertFalse(SharesCharacters.isCharacterShared("", "aaa"));
+        assertFalse(SharesCharacters.sharesCharacters("", "aaa"));
     }
 
     @Test
     public void testWhenSecondStringNull() {
-        assertFalse(SharesCharacters.isCharacterShared("aaa", null));
+        assertFalse(SharesCharacters.sharesCharacters("aaa", null));
     }
 
     @Test
     public void testWhenSecondStringEmpty() {
-        assertFalse(SharesCharacters.isCharacterShared("aaa", null));
+        assertFalse(SharesCharacters.sharesCharacters("aaa", null));
     }
 
     @Test
     public void testWhenSharesCharacter() {
-        assertTrue(SharesCharacters.isCharacterShared("aaa", "abc"));
+        assertTrue(SharesCharacters.sharesCharacters("aaa", "abc"));
     }
 
     @Test
     public void testWhenNotSharedCharacter() {
-        assertFalse(SharesCharacters.isCharacterShared("aaa", "bbc"));
+        assertFalse(SharesCharacters.sharesCharacters("aaa", "bbc"));
     }
 }

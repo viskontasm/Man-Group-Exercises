@@ -42,19 +42,19 @@ public class ListReducer {
             Collections.reverse(indices);
             indices.stream()
                     .filter(ind -> ind.size() > 1)
-                    .forEach(ind -> iterateNTupes(list, ind, 0));
+                    .forEach(ind -> iterateNTuples(list, ind, 0));
         }
         return list;
     }
 
-    private static void iterateNTupes(List<Object> list, List<Integer> ind, int iteration) {
-        if (iteration + 1 == ind.size()) {
-            if (!isEmpty(list)) {
+    private static void iterateNTuples(List<Object> list, List<Integer> ind, int iteration) {
+        if (!isEmpty(list) && !isEmpty(ind)) {
+            if (iteration + 1 == ind.size()) {
                 reducedListByIndices(list, Collections.singletonList(ind.get(ind.size() - 1)));
+            } else if (ind.get(iteration) >= 0 && ind.get(iteration) < list.size()) {
+                List<Object> innerList = (List<Object>) list.get(ind.get(iteration));
+                iterateNTuples(innerList, ind, iteration + 1);
             }
-        } else if (ind.get(iteration) < list.size()){
-            List<Object> innerList = (List<Object>) list.get(ind.get(iteration));
-            iterateNTupes(innerList, ind, iteration + 1);
         }
     }
 }

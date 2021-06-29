@@ -4,7 +4,7 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 public class SharesCharacters {
 
-    public static boolean isCharacterShared(String one, String two) {
+    public static boolean sharesCharacters(String one, String two) {
         if (isEmpty(one) || isEmpty(two)) {
             return false;
         }
